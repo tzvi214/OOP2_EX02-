@@ -1,11 +1,6 @@
 #include "Email.h"
 
-Email::Email()
-	:m_email("")
+Email::Email(std::string& email)
+	: Validator(email)
 {}
-//------------------------------
-Email::Email(const std::string& email)
-	:m_email(email)
-{
-}
-//------------------------------
+

@@ -1,17 +1,13 @@
 #pragma once
 #include <string>
 #include <cctype>
+#include "Validator.h"
 
-
-class Address 
+class Address : public Validator<std::string>
 {
 public:
-	Address();
-	Address(const std::string& address);
-	void setAddress(const std::string& address) { m_address = address; };
-	std::string getAddress() const { return m_address; };
+	Address(std::string& address);
 	bool isValid() const { return true; };
 
 private:
-	std::string m_address;
 };

@@ -1,19 +1,15 @@
 #include "Name.h"
 
-Name::Name()
 
-{
-}
-//------------------------------
-Name::Name(const std::string& name)
-	: m_name(name)
+Name::Name(std::string& name)
+	:Validator(name)
 {}
 //------------------------------
 bool Name::isValid() const
 {
-	if (m_name.empty())
+	if (m_validator.empty()) 
 		return false;
-	for (char c : m_name)
+	for (char c : m_validator)
 	{
 		if (std::isdigit(c) || c == ' ')
 			return false;

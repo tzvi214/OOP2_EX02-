@@ -1,11 +1,5 @@
 #include "Address.h"
 
-Address::Address()
-	:m_address("")
+Address::Address(std::string& address)
+	:Validator(address)
 {}
-//------------------------------
-Address::Address(const std::string& address)
-	:m_address(address)
-{
-}
-//------------------------------

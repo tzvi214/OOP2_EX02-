@@ -1,18 +1,12 @@
 #pragma once
 #include <string>
 #include <cctype>
+#include "Validator.h"
 
-
-class Email
+class Email : public Validator<std::string>
 {
 public:
-	Email();
-	Email(const std::string& email);
-	void setEmail(const std::string& email) { m_email = email; };
-	std::string getEmail() const { return m_email; };
-	bool isValid() const { return true; };// for debug
-
-
+	Email(std::string& email);
+	
 private:
-	std::string m_email;
 };
