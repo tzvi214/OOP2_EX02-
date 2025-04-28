@@ -1,18 +1,16 @@
 #pragma once
 #include <string>
 #include <cctype>
+#include "Validator.h"
 
-class Id {
+class Id : public Validator<int>
+{
 public:
-	Id();
-	Id(const int& id);
-	void setId(const int & id) { m_id = id; };
-	int  getId() const { return m_id; };
+
+	Id(int & id);
 	bool isValid() const;
 
-	
 private:
-	int m_id;
-	
+		
 };
 

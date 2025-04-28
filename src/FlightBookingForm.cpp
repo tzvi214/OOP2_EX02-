@@ -116,7 +116,7 @@ void FlightBookingForm::render(sf::RenderWindow& window) {
 
 }
 
-
+//------------------------------
 void FlightBookingForm::handleInput(sf::Event event) {
     if (event.type == sf::Event::TextEntered) {
         if (event.text.unicode == '\b' && !userInput[activeField].empty()) { 

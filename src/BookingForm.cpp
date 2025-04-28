@@ -7,7 +7,7 @@ BookingForm::BookingForm(sf::RenderWindow& win, DialogueManager* manager) :windo
     fieldLabels = { "Name:", "ID:", "Address:", "Email:" };  // ✅ Add common fields
     userInput.resize(fieldLabels.size(), "");  // Initialize input fields
 }
-
+//------------------------------
 void BookingForm::openConfirmationWindow() {
     const std::string& formTitle = getFormType();
     sf::RenderWindow confirmWindow(sf::VideoMode(500, 600), "Confirm " + formTitle);
