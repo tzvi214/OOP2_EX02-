@@ -25,6 +25,7 @@ void HotelBookingForm::setDefaultValues() {
     userInput[8]="Single Room";
 }
 
+
 std::string HotelBookingForm::getFormType() const {
     return "Hotel Booking";
 }
@@ -163,6 +164,7 @@ void HotelBookingForm::handleInput(sf::Event event) {
         // ✅ Handle "Done" Button Click
         if (mousePos.x >= 20 && mousePos.x <= 160 && mousePos.y >= 570 && mousePos.y <= 610) {
             std::cout << "Flight Booking Confirmed!\n";
+			// made init function
             openConfirmationWindow();  // ✅ Open confirmation
             return;
         }

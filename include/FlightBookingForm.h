@@ -19,6 +19,7 @@ private:
 	//--- my change
     const int m_numOfFields = 8;
 	void analyzedVec();
+
 public:
     FlightBookingForm(sf::RenderWindow& win, DialogueManager* manager);  // ✅ Updated constructor
     std::string getFormType() const override;

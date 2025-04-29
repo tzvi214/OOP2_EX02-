@@ -5,7 +5,7 @@
 
 void FlightBookingForm::analyzedVec()
 {
-	m_fields.resize(m_numOfFields -1);// m_numOfFields = 8 -1 becuse i didnt made the last validator it
+	m_fields.resize(m_numOfFields);// m_numOfFields = 8 -1 becuse i didnt made the last validator it
     int idValue =0;
     if (!(userInput[1].empty()))
          idValue = std::stoi(userInput[1]);
@@ -17,6 +17,7 @@ void FlightBookingForm::analyzedVec()
     m_fields[4] = std::make_unique< Field<Name> >(Name (userInput[4]));
     m_fields[5] = std::make_unique< Field<Name> >(Name(userInput[5]));
     m_fields[6] = std::make_unique< Field<Date> >(Date(userInput[6]));
+	m_fields[7] = std::make_unique< Field<Date> >(Date(userInput[7]));
 }
 //------------------------------
 FlightBookingForm::FlightBookingForm(sf::RenderWindow& win, DialogueManager* manager)
