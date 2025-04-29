@@ -9,8 +9,8 @@ class Field
 {
 public:
 
-	virtual bool isValid() const = 0;
-	virtual ~Field() = default;
+         bool isValid();  
+
 
 private:
 
