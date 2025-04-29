@@ -9,6 +9,18 @@ BookingForm::BookingForm(sf::RenderWindow& win, DialogueManager* manager) :windo
 }
 //------------------------------
 void BookingForm::openConfirmationWindow() {
+
+    //----- my code ---------
+    int i = 0;
+    for ( const auto &file :  m_fields ) {
+		if (!file->isValid()) {
+            std::cout << i << std::endl;
+			return;  // Exit if any field is invalid
+		}
+        i++;
+    }
+
+    //-------------------------------
     const std::string& formTitle = getFormType();
     sf::RenderWindow confirmWindow(sf::VideoMode(500, 600), "Confirm " + formTitle);
 

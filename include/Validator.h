@@ -6,7 +6,7 @@ class Validator
 public:
 	virtual ~Validator() = default;
 
-	Validator(T& validator) :
+	Validator(const T& validator) :
 		m_validator(validator) {}
 
   virtual bool isValid() const = 0 ;

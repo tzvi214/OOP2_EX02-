@@ -7,7 +7,7 @@ class Id : public Validator<int>
 {
 public:
 
-	Id(int & id);
+	Id( int & id);
 	bool isValid() const;
 
 private:
