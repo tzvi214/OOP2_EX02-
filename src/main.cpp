@@ -9,25 +9,48 @@
 //    engine.run();   //  Start the loop inside Engine
 //    return 0;
 //}
-
 #include <iostream>
+#include <vector>
+#include <memory>
 #include "Field.h"
 #include "Id.h"
 #include "Email.h"
+#include "Name.h"
+#include "Address.h"
 
 int main() {
-	int idVal = 123456782; // מספר תקין לפי אלגוריתם ת"ז
-	std::string emailVal = "example@test.com";
+	std::vector<std::unique_ptr<BaseField>> fields;
 
-	Id id(idVal);
-	Email email(emailVal);
+	// תקינים
+	int validId = 123456782;  // מספר ת"ז תקני
+	std::string validEmail = "example@test.com";
+	std::string validName = "John Doe";
+	std::string validAddress = "123 Main St";
 
-	Field<Id> idField(id);
-	Field<Email> emailField(email);
+	// לא תקינים
+	int invalidId = 123456789; // לא עובר אלגוריתם ביקורת
+	std::string invalidEmail = "no-at-symbol.com";
+	std::string invalidName = ""; // ריק
+	std::string invalidAddress = " "; // ריק מבחינת משמעות
 
-	std::cout << "ID is valid: " << std::boolalpha << idField.isValid() << std::endl;
-	std::cout << "Email is valid: " << std::boolalpha << emailField.isValid() << std::endl;
+	// מוסיפים אובייקטים תקינים
+	fields.push_back(std::make_unique<Field<Id>>(Id(validId)));
+	fields.push_back(std::make_unique<Field<Email>>(Email(validEmail)));
+	fields.push_back(std::make_unique<Field<Name>>(Name(validName)));
+	fields.push_back(std::make_unique<Field<Address>>(Address(validAddress)));
 
-	return 0;
+	// מוסיפים אובייקטים לא תקינים
+	fields.push_back(std::make_unique<Field<Id>>(Id(invalidId)));
+	fields.push_back(std::make_unique<Field<Email>>(Email(invalidEmail)));
+	fields.push_back(std::make_unique<Field<Name>>(Name(invalidName)));
+	fields.push_back(std::make_unique<Field<Address>>(Address(invalidAddress)));
+
+	std::cout << "Testing fields validity:\n";
+
+	int index = 1;
+	for (const auto& field : fields) {
+		std::cout << "Field #" << index++ << " is valid: "
+			<< std::boolalpha << field->isValid() << std::endl;
+	}
 }
 

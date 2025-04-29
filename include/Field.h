@@ -4,12 +4,13 @@
 #include "Address.h"
 #include "Email.h"
 #include <string>
-
+#include "BaseField.h" 
 template <typename T>
-class Field
+class Field : public BaseField
 {
 public:
-	Field(T& validator) :
+	
+	Field(const T& validator) :
 		m_val(validator) {
 	}
          bool isValid() const;  

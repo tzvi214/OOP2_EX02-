@@ -4,6 +4,8 @@ template <typename T>
 class Validator 
 {
 public:
+	virtual ~Validator() = default;
+
 	Validator(T& validator) :
 		m_validator(validator) {}
 
