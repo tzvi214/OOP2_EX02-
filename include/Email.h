@@ -7,6 +7,6 @@ class Email : public Validator<std::string>
 {
 public:
 	Email(std::string& email);
-	
+	bool isValid() const { return true; };
 private:
 };
