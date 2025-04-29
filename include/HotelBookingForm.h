@@ -12,7 +12,8 @@ private:
     void setDefaultValues() override;
     std::array<std::string, 4> roomTypeSelection = {"Single Room","Double Room","Family Room","Presidential Suite"};
 	int selectedRoomType = 0;
-
+    const int m_numOfFields = 9;
+    void analyzedVec();
 };
 
 #endif // HOTELBOOKINGFORM_H
