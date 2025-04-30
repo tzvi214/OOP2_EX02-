@@ -50,6 +50,17 @@ void BookingForm::openConfirmationWindow() {
             y += 25;
         }
     }
+    for (size_t i = fieldLabels.size(); i < m_fields.size(); ++i) {
+        if (!m_fields[i]->isValid()) {
+            std::string label = "Field " + std::to_string(i + 1) + " is invalid";
+            sf::Text invalidText(label, font, 18);
+            invalidText.setPosition(50, y);
+            invalidText.setFillColor(sf::Color::Red);
+            fieldTexts.push_back(invalidText);
+            y += 25;
+        }
+    }
+
 
     float buttonY = y + 30;
 

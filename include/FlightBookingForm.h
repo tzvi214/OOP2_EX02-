@@ -16,7 +16,7 @@ private:
         std::make_pair("Night", false),
         std::make_pair("Don't Care", true)  // ✅ Default selection
     };
-	//--- my change
+	//--- my change -------
     const int m_numOfFields = 8;
 	void analyzedVec();
 
