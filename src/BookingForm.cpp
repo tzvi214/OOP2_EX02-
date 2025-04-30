@@ -52,7 +52,7 @@ void BookingForm::openConfirmationWindow() {
     }
     for (size_t i = fieldLabels.size(); i < m_fields.size(); ++i) {
         if (!m_fields[i]->isValid()) {
-            std::string label = "Field " + std::to_string(i + 1) + " is invalid";
+            std::string label = "  Invalid Form  ";//"Field " + std::to_string(i + 1) + " is invalid";
             sf::Text invalidText(label, font, 18);
             invalidText.setPosition(50, y);
             invalidText.setFillColor(sf::Color::Red);
