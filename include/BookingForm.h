@@ -19,6 +19,7 @@
 #include "StartEndDate.h"
 #include "ChoiceHotel.h"
 #include "RoomGuestMatcher.h"
+#include "ChoiceFlight.h"
 
 
 class DialogueManager;

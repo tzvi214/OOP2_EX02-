@@ -10,12 +10,16 @@ void FlightBookingForm::analyzedVec()
 
     m_fields[0] = std::make_unique< Field<Name>>(Name(userInput[0]));
     m_fields[1] = std::make_unique< Field<Id> >(Id(idValue));
-    m_fields[2] = std::make_unique< Field<Address> >(Address(userInput[2]));
+    m_fields[2] = std::make_unique< Field<Address>>(Address(userInput[2]));
     m_fields[3] = std::make_unique< Field<Email> >(Email(userInput[3]));
     m_fields[4] = std::make_unique< Field<Name> >(Name (userInput[4]));
     m_fields[5] = std::make_unique< Field<Name> >(Name(userInput[5]));
     m_fields[6] = std::make_unique< Field<Date> >(Date(userInput[6]));
-	m_fields[7] = std::make_unique< Field<Date> >(Date(userInput[7]));
+
+    std::string input = userInput[7];
+
+    std::pair <std::string, std::vector<std::pair<std::string, bool>>> pair = {input, getVecTime()};
+	m_fields[7] = std::make_unique< Field<ChoiceFlight>> (ChoiceFlight(pair));
 }
 //------------------------------
 FlightBookingForm::FlightBookingForm(sf::RenderWindow& win, DialogueManager* manager)
@@ -207,7 +211,11 @@ void FlightBookingForm::handleInput(sf::Event event) {
     }
 
 }
-
+//---------------------------------------------
+std::vector<std::pair<std::string, bool>> FlightBookingForm::getVecTime()
+{
+    return timeSelection;
+}
 
 
 
