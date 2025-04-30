@@ -46,7 +46,8 @@ void HotelBookingForm::analyzedVec()
     m_fields[8] = std::make_unique<Field<ChoiceHotel>>(ChoiceHotel(pair));
 
     std::vector<Date> dateVec = {Date(userInput[5]), Date(userInput[6])};
-    m_fields[9] = std::make_unique<Field<StartEndDate>> (StartEndDate(dateVec));    // later on to changed it to room type
+    m_fields[9] = std::make_unique<Field<StartEndDate>> (StartEndDate(dateVec));  
+    m_fields[10] = std::make_unique<Field<RoomGuestMatcher>> (RoomGuestMatcher(std::make_pair(ChoiceHotel(pair), NumGuests(numGus))));
 }
 
 std::string HotelBookingForm::getFormType() const {

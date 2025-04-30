@@ -12,7 +12,7 @@ public:
 private:
     void setDefaultValues() override;
     std::vector<std::string> roomTypeSelection = { "Single Room","Double Room","Family Room","Presidential Suite" };	int selectedRoomType = 0;
-    const int m_numOfFields = 10;
+    const int m_numOfFields = 11;
     void analyzedVec();
 };
 
