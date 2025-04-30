@@ -6,6 +6,7 @@
 #include <string>
 #include <array>
 #include <memory>
+#include <utility>
 #include "BaseField.h"
 #include "Validator.h"
 #include "Field.h"
@@ -16,6 +17,7 @@
 #include "Date.h"
 #include "NumGuests.h"
 #include "StartEndDate.h"
+#include "ChoiceHotel.h"
 
 
 class DialogueManager;

@@ -28,7 +28,7 @@ void HotelBookingForm::setDefaultValues() {
 void HotelBookingForm::analyzedVec()
 {
     
-    m_fields.resize(m_numOfFields +1);// m_numOfFields = 9;
+    m_fields.resize(m_numOfFields );// m_numOfFields = 9;
     int idValue = stringToInt(userInput[1]);
    
     m_fields[0] = std::make_unique< Field<Name>> (Name(userInput[0]));
@@ -40,10 +40,12 @@ void HotelBookingForm::analyzedVec()
     m_fields[6] = std::make_unique< Field<Date>> (Date(userInput[6]));
     int numGus = stringToInt(userInput[7]);
     m_fields[7] = std::make_unique< Field<NumGuests> >(NumGuests(numGus));
-    m_fields[8] = std::make_unique< Field<Date>>(Date(userInput[8]));
+
+    std::vector<std::string >Vecstr = getArrayChoice();
+    std::pair<std::string, std::vector<std::string>> pair(userInput[8], Vecstr);
+    m_fields[8] = std::make_unique<Field<ChoiceHotel>>(ChoiceHotel(pair));
 
     std::vector<Date> dateVec = {Date(userInput[5]), Date(userInput[6])};
-
     m_fields[9] = std::make_unique<Field<StartEndDate>> (StartEndDate(dateVec));    // later on to changed it to room type
 }
 
@@ -198,4 +200,9 @@ void HotelBookingForm::handleInput(sf::Event event) {
             return;
         }
     }
+}
+//---------------------------------------
+std::vector<std::string> HotelBookingForm::getArrayChoice()
+{
+    return roomTypeSelection;
 }
