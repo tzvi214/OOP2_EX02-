@@ -28,17 +28,6 @@ struct PersonalInfo {
 };
 
 class BookingForm {
-private:
-    std::vector<sf::Text> createFieldTexts(const sf::Font& font);
-    void handleConfirmationEvents(sf::RenderWindow& window, float buttonY, bool& approved,
-        const std::string& formTitle);
-    void drawConfirmationUI(sf::RenderWindow& window, const sf::Font& font,
-        const std::string& formTitle,
-        const std::vector<sf::Text>& fieldTexts,
-        float buttonY);
-    void drawButton(sf::RenderWindow& window, const sf::Font& font,
-        const std::string& text, sf::Vector2f pos, sf::Color color);
-
 
 protected:
     std::vector<std::string> fieldLabels;

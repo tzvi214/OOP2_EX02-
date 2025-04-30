@@ -7,32 +7,7 @@ BookingForm::BookingForm(sf::RenderWindow& win, DialogueManager* manager) :windo
     fieldLabels = { "Name:", "ID:", "Address:", "Email:" };  // ✅ Add common fields
     userInput.resize(fieldLabels.size(), "");  // Initialize input fields
 }
-
-void BookingForm::openConfirmationWindow() {
-    const std::string& formTitle = getFormType();
-    sf::RenderWindow confirmWindow(sf::VideoMode(500, 600), "Confirm " + formTitle);
-
-    sf::Font font;
-    font.loadFromFile("C:/Windows/Fonts/arialbd.ttf");
-
-    bool approved = false;
-
-    std::vector<sf::Text> fieldTexts = createFieldTexts(font);
-    float buttonY = fieldTexts.back().getPosition().y + 55;
-
-    while (confirmWindow.isOpen()) {
-        handleConfirmationEvents(confirmWindow, buttonY, approved, formTitle);
-
-        confirmWindow.clear(sf::Color(240, 240, 240));
-        drawConfirmationUI(confirmWindow, font, formTitle, fieldTexts, buttonY);
-        confirmWindow.display();
-    }
-
-    if (approved) {
-        formManager->closeForm();
-    }
-}
-//----------------------------------------------
+//----------------------------------------------------
 int BookingForm::stringToInt(const std::string& str)
 {
 
@@ -47,80 +22,95 @@ int BookingForm::stringToInt(const std::string& str)
    return result;
   
 }
-//------------------------------
-std::vector<sf::Text> BookingForm::createFieldTexts(const sf::Font& font) {
-    std::vector<sf::Text> texts;
-    float y = 80.0f;
+//-------------------------------------------
+void BookingForm::openConfirmationWindow() {
+    const std::string& formTitle = getFormType();
+    sf::RenderWindow confirmWindow(sf::VideoMode(500, 600), "Confirm " + formTitle);
 
+    sf::Font font;
+    font.loadFromFile("C:/Windows/Fonts/arialbd.ttf");
+
+    bool approved = false;
+
+    // הכנת השורות עם צבעים לפי חוקיות
+    std::vector<sf::Text> fieldTexts;
+    float y = 80.0f;
     for (size_t i = 0; i < fieldLabels.size(); ++i) {
-        sf::Text label(fieldLabels[i] + " " + userInput[i], font, 18);
-        label.setPosition(50, y);
-        label.setFillColor(sf::Color::Black);
-        texts.push_back(label);
+        sf::Text fieldText(fieldLabels[i] + " " + userInput[i], font, 18);
+        fieldText.setPosition(50, y);
+        fieldText.setFillColor(sf::Color::Black);
+        fieldTexts.push_back(fieldText);
         y += 25;
 
-		if (m_fields.size() > 0 && !m_fields[i]->isValid()) {// m_fields.size() > 0 because i want that will work for all the classes
-            sf::Text invalid("    Invalid input", font, 18);
-            invalid.setPosition(50, y);
-            invalid.setFillColor(sf::Color::Red);
-            texts.push_back(invalid);
+        if (!m_fields[i]->isValid()) {
+            sf::Text invalidText("    Invalid input", font, 18);
+            invalidText.setPosition(50, y);
+            invalidText.setFillColor(sf::Color::Red);
+            fieldTexts.push_back(invalidText);
             y += 25;
         }
     }
 
-    return texts;
-}
-//-------------------------------
-void BookingForm::handleConfirmationEvents(sf::RenderWindow& window, float buttonY, bool& approved, const std::string& formTitle) {
-    sf::Event event;
-    while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            window.close();
-        }
+    float buttonY = y + 30;
 
-        if (event.type == sf::Event::MouseButtonPressed) {
-            float x = event.mouseButton.x;
-            float y = event.mouseButton.y;
+    while (confirmWindow.isOpen()) {
+        sf::Event event;
+        while (confirmWindow.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                confirmWindow.close();
 
-            if (x >= 280 && x <= 400 && y >= buttonY && y <= buttonY + 45) {
-                window.close();
-            }
+            if (event.type == sf::Event::MouseButtonPressed) {
+                float mouseX = event.mouseButton.x;
+                float mouseY = event.mouseButton.y;
 
-            if (x >= 100 && x <= 220 && y >= buttonY && y <= buttonY + 45) {
-                std::cout << formTitle << " Confirmed! Returning to main menu." << std::endl;
-                approved = true;
-                window.close();
+                if (mouseX >= 280 && mouseX <= 400 && mouseY >= buttonY && mouseY <= buttonY + 45) {
+                    confirmWindow.close();
+                }
+                if (mouseX >= 100 && mouseX <= 220 && mouseY >= buttonY && mouseY <= buttonY + 45) {
+                    std::cout << formTitle << " Confirmed! Returning to main menu." << std::endl;
+                    approved = true;
+                    confirmWindow.close();
+                }
             }
         }
+
+        confirmWindow.clear(sf::Color(240, 240, 240));
+
+        sf::Text title("Confirm " + formTitle, font, 22);
+        title.setFillColor(sf::Color::Black);
+        title.setStyle(sf::Text::Bold);
+        title.setPosition(130, 20);
+        confirmWindow.draw(title);
+
+        for (auto& txt : fieldTexts)
+            confirmWindow.draw(txt);
+
+        // ✅ Approve Button
+        sf::RectangleShape approveButton(sf::Vector2f(120, 40));
+        approveButton.setPosition(100, buttonY);
+        approveButton.setFillColor(sf::Color(50, 150, 50));
+        confirmWindow.draw(approveButton);
+
+        sf::Text approveText("APPROVE", font, 18);
+        approveText.setFillColor(sf::Color::White);
+        approveText.setPosition(118, buttonY + 10);
+        confirmWindow.draw(approveText);
+
+        // ✅ Cancel Button
+        sf::RectangleShape cancelButton(sf::Vector2f(120, 40));
+        cancelButton.setPosition(280, buttonY);
+        cancelButton.setFillColor(sf::Color(180, 0, 0));
+        confirmWindow.draw(cancelButton);
+
+        sf::Text cancelText("CANCEL", font, 18);
+        cancelText.setFillColor(sf::Color::White);
+        cancelText.setPosition(305, buttonY + 10);
+        confirmWindow.draw(cancelText);
+
+        confirmWindow.display();
     }
-}
-//-------------------------------
-void BookingForm::drawConfirmationUI(sf::RenderWindow& window, const sf::Font& font,
-    const std::string& formTitle,
-    const std::vector<sf::Text>& fieldTexts, float buttonY) 
-{
-    sf::Text title("Confirm " + formTitle, font, 22);
-    title.setFillColor(sf::Color::Black);
-    title.setStyle(sf::Text::Bold);
-    title.setPosition(130, 20);
-    window.draw(title);
 
-    for (const auto& txt : fieldTexts)
-        window.draw(txt);
-
-    drawButton(window, font, "APPROVE", sf::Vector2f(100, buttonY), sf::Color(50, 150, 50));
-    drawButton(window, font, "CANCEL", sf::Vector2f(280, buttonY), sf::Color(180, 0, 0));
-}
-//-------------------------------
-void BookingForm::drawButton(sf::RenderWindow& window, const sf::Font& font,
-    const std::string& text, sf::Vector2f pos, sf::Color color) {
-    sf::RectangleShape button(sf::Vector2f(120, 40));
-    button.setPosition(pos);
-    button.setFillColor(color);
-    window.draw(button);
-
-    sf::Text buttonText(text, font, 18);
-    buttonText.setFillColor(sf::Color::White);
-    buttonText.setPosition(pos.x + 18, pos.y + 10);  // מרכוז מקורב
-    window.draw(buttonText);
+    if (approved) {
+        formManager->closeForm();
+    }
 }
