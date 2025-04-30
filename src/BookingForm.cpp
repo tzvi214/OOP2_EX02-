@@ -32,6 +32,21 @@ void BookingForm::openConfirmationWindow() {
         formManager->closeForm();
     }
 }
+//----------------------------------------------
+int BookingForm::stringToInt(const std::string& str)
+{
+
+   if (str.empty()) return 0;
+
+   int result = 0;
+   for (char c : str) {
+       if (c < '0' || c > '9') return 0; // תו לא מספרי
+       result = result * 10 + (c - '0');
+   }
+
+   return result;
+  
+}
 //------------------------------
 std::vector<sf::Text> BookingForm::createFieldTexts(const sf::Font& font) {
     std::vector<sf::Text> texts;
@@ -44,7 +59,7 @@ std::vector<sf::Text> BookingForm::createFieldTexts(const sf::Font& font) {
         texts.push_back(label);
         y += 25;
 
-		if (m_fields.size() > 0 && !m_fields[i]->isValid()) {// m_fields.size() > 0 because i whant that will work for all the classes
+		if (m_fields.size() > 0 && !m_fields[i]->isValid()) {// m_fields.size() > 0 because i want that will work for all the classes
             sf::Text invalid("    Invalid input", font, 18);
             invalid.setPosition(50, y);
             invalid.setFillColor(sf::Color::Red);

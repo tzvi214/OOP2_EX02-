@@ -6,9 +6,10 @@
 void FlightBookingForm::analyzedVec()
 {
 	m_fields.resize(m_numOfFields);// m_numOfFields = 8 -1 becuse i didnt made the last validator it
-    int idValue =0;
+   /* int idValue =0;
     if (!(userInput[1].empty()))
-         idValue = std::stoi(userInput[1]);
+         idValue = std::stoi(userInput[1]);*/
+    int idValue = stringToInt(userInput[1]);
 
     m_fields[0] = std::make_unique< Field<Name>>(Name(userInput[0]));
     m_fields[1] = std::make_unique< Field<Id> >(Id(idValue));

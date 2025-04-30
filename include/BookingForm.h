@@ -14,6 +14,8 @@
 #include "Address.h"
 #include "Email.h"
 #include "Date.h"
+#include "NumGuests.h"
+#include "StartEndDate.h"
 
 
 class DialogueManager;
@@ -24,7 +26,6 @@ struct PersonalInfo {
     std::string address;
     std::string email;
 };
-
 
 class BookingForm {
 private:
@@ -55,6 +56,7 @@ protected:
     virtual void setDefaultValues()=0 ;
     void openConfirmationWindow();//to add in this function the validators
 
+    int stringToInt(const std::string &);
 public:
     BookingForm(sf::RenderWindow& win, DialogueManager* manager);
     virtual ~BookingForm() = default;

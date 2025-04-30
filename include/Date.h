@@ -11,7 +11,7 @@ public:
 	Date();
 	Date(std::string&);
 	virtual bool isValid() const override;
-
+	std::string getDate()const {return m_validator ; }
 private:
 	const std::string getTodayDate();
 };

@@ -27,22 +27,24 @@ void HotelBookingForm::setDefaultValues() {
 
 void HotelBookingForm::analyzedVec()
 {
-    m_fields.resize(m_numOfFields);
-    int idValue = 0;
-    if (!(userInput[1].empty()))
-        idValue = std::stoi(userInput[1]);
+    
+    m_fields.resize(m_numOfFields);// m_numOfFields = 9;
+    int idValue = stringToInt(userInput[1]);
+   
+    m_fields[0] = std::make_unique< Field<Name>> (Name(userInput[0]));
+    m_fields[1] = std::make_unique< Field<Id>> (Id(idValue));
+    m_fields[2] = std::make_unique< Field<Address>> (Address(userInput[2]));
+    m_fields[3] = std::make_unique< Field<Email>> (Email(userInput[3]));
+    m_fields[4] = std::make_unique< Field<Name>> (Name(userInput[4]));
+    m_fields[5] = std::make_unique< Field<Date>> (Date(userInput[5]));
+    m_fields[6] = std::make_unique< Field<Date>> (Date(userInput[6]));
 
-    m_fields[0] = std::make_unique< Field<Name>>(Name(userInput[0]));
-    m_fields[1] = std::make_unique< Field<Id> >(Id(idValue));
-    m_fields[2] = std::make_unique< Field<Address> >(Address(userInput[2]));
-    m_fields[3] = std::make_unique< Field<Email> >(Email(userInput[3]));
-    m_fields[4] = std::make_unique< Field<Name> >(Name(userInput[4]));
-    m_fields[5] = std::make_unique< Field<Name> >(Name(userInput[5]));
-    m_fields[6] = std::make_unique< Field<Date> >(Date(userInput[6]));
-    m_fields[7] = std::make_unique< Field<Date> >(Date(userInput[7]));
-    m_fields[8] = std::make_unique< Field<Date> >(Date(userInput[8]));
+    int numGus = stringToInt(userInput[7]);
+    m_fields[7] = std::make_unique< Field<NumGuests> >(NumGuests(numGus));
+    std::vector<Date> dateVec = {Date(userInput[5]), Date(userInput[6])};
+
+    m_fields[8] = std::make_unique<Field<StartEndDate>> (StartEndDate(dateVec));    // later on to changed it to room type
 }
-
 
 std::string HotelBookingForm::getFormType() const {
     return "Hotel Booking";
